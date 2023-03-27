@@ -13,3 +13,7 @@ ws.onmessage = function(event) {
 ws.onerror = function(event) {
   console.error('WebSocket error: ' + event);
 };
+
+ws.onclose = function() {
+  console.log('WebSocket closed');
+};
