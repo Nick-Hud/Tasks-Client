@@ -11,9 +11,11 @@ function connect() {
     console.log('Connected to WebSocket server');
     document.getElementById("connectedStatus").innerHTML = "Connected"
     ws.send('clientWelcome');
+    ws.send("usrnme:" + usernameValue)
   };
   ws.onmessage = function (event) {
     console.log('received: ' + event.data);
+    getData(String(event.data))
   };
 
   ws.onerror = function (event) {
@@ -25,4 +27,14 @@ function connect() {
     document.getElementById("connectedStatus").innerHTML = "Not Connected"
   };
 
+}
+
+let username;
+
+function getData(data){
+  let locOfCol = data.indexOf(":")
+  if(data.slice(0, locOfCol) == "usrnme"){
+    username = data.slice(locOfCol + 1, data.length)
+    document.getElementById("welcomeMsg").innerHTML = ("Hello " + username)
+  }
 }
