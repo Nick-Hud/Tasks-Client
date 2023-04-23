@@ -23,17 +23,15 @@ function submitCreds() {
   console.log("Submit")
   let usernameValue = document.getElementById("username").value;
   let passwordValue = document.getElementById("password").value;
-  ws.send("usrnme:" + usernameValue)
-  ws.send("pass:" + passwordValue)
-
+  ws.send("getAuth:" + usernameValue + "+" + passwordValue)
 }
 
 let username;
 
 function getData(data){
   let locOfCol = data.indexOf(":")
-  if(data.slice(0, locOfCol) == "usrnme"){
-    username = data.slice(locOfCol + 1, data.length)
-    document.getElementById("welcomeMsg").innerHTML = ("Hello " + username)
+  if(data.slice(0, locOfCol) == "auth"){
+    auth = data.slice(locOfCol + 1, data.length)
+    document.getElementById("welcomeMsg").innerHTML = ("Authenticated = " + auth)
   }
 }
